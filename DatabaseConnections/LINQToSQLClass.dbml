@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Project1Database" Class="LINQToSQLClassDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-DAN4QTFK\SQLEXPRESS;Initial Catalog=Project1Database;Integrated Security=True" SettingsObjectName="ShopProject.Properties.Settings" SettingsPropertyName="Project1DatabaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Address" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="AddressID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Country" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="City" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Address_User" Member="Users" ThisKey="AddressID" OtherKey="AddressID" Type="User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Passcode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AddressID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BalanceInDollars" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Association Name="User_Order" Member="Orders" ThisKey="ID" OtherKey="CustomerID" Type="Order" />
+      <Association Name="Address_User" Member="Address" ThisKey="AddressID" OtherKey="AddressID" Type="Address" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order Details]" Member="Order_Details">
+    <Type Name="Order_Detail">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Order_Order_Detail" Member="Order" ThisKey="OrderID" OtherKey="OrderID" Type="Order" IsForeignKey="true" />
+      <Association Name="Product_Order_Detail" Member="Product" ThisKey="ProductID" OtherKey="CarID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="OrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustomerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BoughtDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Total number of products bought]" Member="Total_number_of_products_bought" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Total Price]" Member="Total_Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Order_Order_Detail" Member="Order_Details" ThisKey="OrderID" OtherKey="OrderID" Type="Order_Detail" />
+      <Association Name="User_Order" Member="User" ThisKey="CustomerID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Products" Member="Products">
+    <Type Name="Product">
+      <Column Name="CarID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Engine" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Color" Type="System.String" DbType="NChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="[Number of cylinders]" Member="Number_of_cylinders" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Distance covered]" Member="Distance_covered" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="[Charging time]" Member="Charging_time" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Top speed]" Member="Top_speed" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="[Acceleration 0-60mph]" Member="Acceleration_0_60mph" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="[Seating Capacity]" Member="Seating_Capacity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Capacity of the motor]" Member="Capacity_of_the_motor" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Numberofcars" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnitPrice" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Product_Order_Detail" Member="Order_Details" ThisKey="CarID" OtherKey="ProductID" Type="Order_Detail" />
+    </Type>
+  </Table>
+</Database>

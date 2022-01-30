@@ -1,0 +1,12 @@
+a b 31 Woman 21 1 462 1500 Junior Mechanical
+c d 22 Woman 10 3 2223 1500 Senior Electrical
+d e 21 Man 10 4 3315 5000 Senior Electrical
+e f 34 Woman 20 5 4188 1500 Senior 2562
+g h 62 Man 26 7 931 1500 Senior 62345
+h i 44 Woman 0 8 4293 5000 Senior Electrical
+j k 31 Man 10 10 437 1500 Junior Electrical
+joee nehme 36 Man 0 12 395071 1500 junior Mechanical
+joeeee j 20 Man 0 13 750998 1500 junior 0
+joeeee j 20 Man 0 14 423947 1500 junior 0
+i j 48 woman 28 9 3011 5000 senior 1857
+b c 48 woman 5 2 1565 5000 senior electrical

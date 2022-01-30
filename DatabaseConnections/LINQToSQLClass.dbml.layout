@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LINQToSQLClass">
+  <DataContextMoniker Name="/LINQToSQLClassDataContext" />
+  <nestedChildShapes>
+    <classShape Id="b91ab377-18a7-45d2-bc91-19429522afc6" absoluteBounds="1.5, 5.375, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/LINQToSQLClassDataContext/Address" />
+      <nestedChildShapes>
+        <elementListCompartment Id="38071e7d-a4ec-4cf1-8fa3-a5f04288f09a" absoluteBounds="1.5150000000000001, 5.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1a98cd9b-257a-4e61-8371-14f2e4c898e9" absoluteBounds="1.5, 2.25, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/LINQToSQLClassDataContext/User" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3483cfda-2931-483d-adba-8fa44ab4d85a" absoluteBounds="1.5150000000000006, 2.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="e79e34f4-f452-4ce1-99d7-8376e4069575" absoluteBounds="6.5, 2.375, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/LINQToSQLClassDataContext/Order_Detail" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f7e111c6-acfc-49cd-83c8-ef89456f4bcc" absoluteBounds="6.5150000000000006, 2.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="acda72dd-aebd-4ead-a277-f51a9cbb4932" absoluteBounds="4, 2.25, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/LINQToSQLClassDataContext/Order" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0a7d0698-0b75-455b-8995-d883970ba783" absoluteBounds="4.015, 2.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1df80db7-4473-45b7-80c8-0d3ab84bbfc2" absoluteBounds="5.875, 4.5, 2, 3.3093082682291675">
+      <DataClassMoniker Name="/LINQToSQLClassDataContext/Product" />
+      <nestedChildShapes>
+        <elementListCompartment Id="050c4578-b0fa-465e-a446-49e6065e31c3" absoluteBounds="5.89, 4.96, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 5.375); (2.5 : 4.40549967447917)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/LINQToSQLClassDataContext/Address/Address_User" />
+      <nodes>
+        <classShapeMoniker Id="b91ab377-18a7-45d2-bc91-19429522afc6" />
+        <classShapeMoniker Id="1a98cd9b-257a-4e61-8371-14f2e4c898e9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6 : 3.19794840494792); (6.5 : 3.19794840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/LINQToSQLClassDataContext/Order/Order_Order_Detail" />
+      <nodes>
+        <classShapeMoniker Id="acda72dd-aebd-4ead-a277-f51a9cbb4932" />
+        <classShapeMoniker Id="e79e34f4-f452-4ce1-99d7-8376e4069575" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.5 : 3.13544840494792); (4 : 3.13544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/LINQToSQLClassDataContext/User/User_Order" />
+      <nodes>
+        <classShapeMoniker Id="1a98cd9b-257a-4e61-8371-14f2e4c898e9" />
+        <classShapeMoniker Id="acda72dd-aebd-4ead-a277-f51a9cbb4932" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.1875 : 4.5); (7.1875 : 4.14589680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/LINQToSQLClassDataContext/Product/Product_Order_Detail" />
+      <nodes>
+        <classShapeMoniker Id="1df80db7-4473-45b7-80c8-0d3ab84bbfc2" />
+        <classShapeMoniker Id="e79e34f4-f452-4ce1-99d7-8376e4069575" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
