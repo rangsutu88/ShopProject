@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopProject.Classes.RepeatedWords
 {
-    class ImportantWords
+    public class ImportantWords
     {
         internal string senior = "senior", junior = "junior", mechanical = "mechanical", electrical = "electrical", man = "man", woman = "woman";
         internal int minimumlength = 7;

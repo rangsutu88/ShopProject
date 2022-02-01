@@ -4,10 +4,11 @@ using System.Linq;
 using System.IO;
 using ShopProject.Classes.RepeatedWords;
 using ShopProject.Classes.Paths;
+using ShopProject.Interfaces;
 
 namespace ShopProject.Classes.People
 {
-     public abstract class Employee : Person
+     public abstract class Employee : Person, IEmployee
     {
         protected int yearsofworking, employeeID, employeepassword;
         protected double salary;

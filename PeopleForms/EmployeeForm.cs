@@ -8,6 +8,7 @@ using System.IO;
 using ShopProject.Classes.People;
 using ShopProject.Classes.RepeatedWords;
 using ShopProject.Classes.Paths;
+using ShopProject.Classes.LoggerClass;
 
 namespace ShopProject.PeopleForms
 {
@@ -163,12 +164,11 @@ namespace ShopProject.PeopleForms
             IDToRemoveNumericUpDown.Visible = true;
             IDToRemoveLabel.Visible = true;
             RemoveEmployeeButton.Visible = true;
+
         }
 
         private void IDToRemoveNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
+        { }
 
         private void AddTheEmployeeButton_Click(object sender, EventArgs e)
         {
@@ -182,40 +182,34 @@ namespace ShopProject.PeopleForms
                     
                     if (id != -1)
                     {
+                        string s = "";
                         string AddEmployeefilepath = AllPaths.GetAddedAndRemovedEmployeeFilepath(), password = Employee.GenerateEmployeePassword();
                         StringBuilder sb = new StringBuilder();
+
                         if ((AddingAnEngineer) && (IsEngineer))
                         {
-                            FileStream ofilestream = new FileStream(filepath, FileMode.Open, FileAccess.Write);
-                            StreamWriter oStreamWriter = new StreamWriter(ofilestream);
-                            ofilestream.Seek(0, SeekOrigin.End);
-                            oStreamWriter.WriteLine(FirstNameTextBox.Text + " " + LastNameTextBox.Text + " " + AgeNumericUpDown.Value + " " +
-                                GenderCombobox.SelectedItem + " " + 0 + " " + id + " " + password + " " +
-                                "1500" + " " + junior + " " + DegreeComboBox.SelectedItem.ToString());
-                            oStreamWriter.Close();
-                            using (TextWriter tw = new StringWriter(sb))
-                            {
-                                tw.Write(engineer.Firstname + " " + engineer.Lastname + " added " + FirstNameTextBox.Text + " " +
-                                    LastNameTextBox.Text + " of ID " + id + " at: " + DateTime.Now);
-                                MessageBox.Show(FirstNameTextBox.Text + " " + LastNameTextBox.Text + " was added");
-                            }
-                            using (StreamWriter write = new StreamWriter(AddEmployeefilepath, true))
-                            {
-                                write.WriteLine(sb.ToString());
-                            }
+                            s = FirstNameTextBox.Text + " " + LastNameTextBox.Text + " " + AgeNumericUpDown.Value + " " + GenderCombobox.SelectedItem + " " + 0 + " " + id + " " + password + " " +  
+                                "1500" + " " + junior + " " + DegreeComboBox.SelectedItem.ToString();
+
+                            Logger.WriteIntoFile(filepath, s);
+
+                            s = engineer.Firstname + " " + engineer.Lastname + " added " + FirstNameTextBox.Text + " " + LastNameTextBox.Text + " of ID " + id + " at: " + DateTime.Now;
                         }
                         else if ((AddingASales) && (IsSales))
                         {
-                            FileStream ofilestream = new FileStream(filepath, FileMode.Open, FileAccess.Write);
-                            StreamWriter oStreamWriter = new StreamWriter(ofilestream);
-                            ofilestream.Seek(0, SeekOrigin.End);
-                            oStreamWriter.WriteLine(FirstNameTextBox.Text + " " + LastNameTextBox.Text + " " + AgeNumericUpDown.Value + " " +
-                                GenderCombobox.SelectedItem + " " + 0 + " " + id + " " + password + " 1500" + " " + junior + " " + "0");
-                            oStreamWriter.Close();
+                            s = FirstNameTextBox.Text + " " + LastNameTextBox.Text + " " + AgeNumericUpDown.Value + " " + GenderCombobox.SelectedItem + " " + 0 + " " + id + " " + password + " 1500" + 
+                                " " + junior + " " + "0";
+                            Logger.WriteIntoFile(filepath, s);
+
+                            s = sales.Firstname + " " + sales.Lastname + " added " + FirstNameTextBox.Text + " " + LastNameTextBox.Text + " of ID " + id + " at: " + DateTime.Now;
+                        }
+                        else if (IsEngineer == false) MessageBox.Show("Engineeers can only add engineers and sales can only add sales");
+
+                        if(s != "")
+                        {
                             using (TextWriter tw = new StringWriter(sb))
                             {
-                                tw.Write(sales.Firstname + " " + sales.Lastname + " added " + FirstNameTextBox.Text + " " +
-                                    LastNameTextBox.Text + " of ID " + id + " at: " + DateTime.Now);
+                                tw.Write(s);
                                 MessageBox.Show(FirstNameTextBox.Text + " " + LastNameTextBox.Text + " was added");
                             }
                             using (StreamWriter write = new StreamWriter(AddEmployeefilepath, true))
@@ -223,7 +217,6 @@ namespace ShopProject.PeopleForms
                                 write.WriteLine(sb.ToString());
                             }
                         }
-                        else if (IsEngineer == false) MessageBox.Show("Engineeers can only add engineers and sales can only add sales");
                     }
                 }
                 catch (DirectoryNotFoundException ex) { MessageBox.Show(ex.Message); }
@@ -255,12 +248,10 @@ namespace ShopProject.PeopleForms
 
                 if (RequestAlreadySent == false)
                 {
-                    FileStream oFileStream = new FileStream(AskForPromotionString, FileMode.Open, FileAccess.Write);
-                    StreamWriter oStreamWriter = new StreamWriter(oFileStream);
-                    oFileStream.Seek(0, SeekOrigin.End);
-                    if (IsEngineer) oStreamWriter.WriteLine(engineer.ToString());
-                    else if (IsSales) oStreamWriter.WriteLine(sales.ToString());
-                    oStreamWriter.Close();
+                    string s = "";
+                    if (IsEngineer) s = engineer.ToString();
+                    else if (IsSales) s = sales.ToString();
+                    Logger.WriteIntoFile(AskForPromotionString, s);
                 }
                 else MessageBox.Show("Request already sent");
             }
@@ -349,7 +340,7 @@ namespace ShopProject.PeopleForms
                                                             isRemoved = true;
                                                         }
                                                     }
-                                                    else if (Convert.ToInt32(informations[5]) == engineer.EmployeeID)
+                                                    else
                                                     {
                                                         MessageBox.Show("You cannot remove yourself");
                                                         w.WriteLine(line);
@@ -378,7 +369,7 @@ namespace ShopProject.PeopleForms
                                                             isRemoved = true;
                                                         }
                                                     }
-                                                    else if (Convert.ToInt32(informations[5]) == sales.EmployeeID)
+                                                    else
                                                     {
                                                         MessageBox.Show("You cannot remove yourself");
                                                         w.WriteLine(line);

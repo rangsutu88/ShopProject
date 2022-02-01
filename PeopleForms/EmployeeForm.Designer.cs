@@ -247,7 +247,7 @@
             this.AddTheEmployeeButton.AutoSize = true;
             this.AddTheEmployeeButton.BackColor = System.Drawing.SystemColors.Control;
             this.AddTheEmployeeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddTheEmployeeButton.Location = new System.Drawing.Point(630, 82);
+            this.AddTheEmployeeButton.Location = new System.Drawing.Point(648, 25);
             this.AddTheEmployeeButton.Margin = new System.Windows.Forms.Padding(4);
             this.AddTheEmployeeButton.Name = "AddTheEmployeeButton";
             this.AddTheEmployeeButton.Size = new System.Drawing.Size(389, 87);
@@ -262,7 +262,7 @@
             this.RemoveEmployeeButton.AutoSize = true;
             this.RemoveEmployeeButton.BackColor = System.Drawing.SystemColors.Control;
             this.RemoveEmployeeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RemoveEmployeeButton.Location = new System.Drawing.Point(630, 222);
+            this.RemoveEmployeeButton.Location = new System.Drawing.Point(648, 140);
             this.RemoveEmployeeButton.Margin = new System.Windows.Forms.Padding(4);
             this.RemoveEmployeeButton.Name = "RemoveEmployeeButton";
             this.RemoveEmployeeButton.Size = new System.Drawing.Size(389, 78);
@@ -310,7 +310,7 @@
             this.AskForAPromotionButton.Location = new System.Drawing.Point(309, 445);
             this.AskForAPromotionButton.Margin = new System.Windows.Forms.Padding(4);
             this.AskForAPromotionButton.Name = "AskForAPromotionButton";
-            this.AskForAPromotionButton.Size = new System.Drawing.Size(235, 62);
+            this.AskForAPromotionButton.Size = new System.Drawing.Size(248, 62);
             this.AskForAPromotionButton.TabIndex = 32;
             this.AskForAPromotionButton.Text = "Ask for a promotion (list, Tostring, filestream)";
             this.AskForAPromotionButton.UseVisualStyleBackColor = false;
@@ -321,7 +321,7 @@
             this.ViewEmployeeInformationsButton.AutoSize = true;
             this.ViewEmployeeInformationsButton.BackColor = System.Drawing.SystemColors.Control;
             this.ViewEmployeeInformationsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ViewEmployeeInformationsButton.Location = new System.Drawing.Point(433, 527);
+            this.ViewEmployeeInformationsButton.Location = new System.Drawing.Point(309, 533);
             this.ViewEmployeeInformationsButton.Margin = new System.Windows.Forms.Padding(4);
             this.ViewEmployeeInformationsButton.Name = "ViewEmployeeInformationsButton";
             this.ViewEmployeeInformationsButton.Size = new System.Drawing.Size(248, 60);

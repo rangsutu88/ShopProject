@@ -9,7 +9,7 @@ using ShopProject.Classes.Paths;
 
 namespace ShopProject.Classes.People
 {
-    sealed class Sales: Employee, IEmployee
+    public sealed class Sales: Employee
     {
         private double moneyearnedperyear;
 
@@ -70,13 +70,7 @@ namespace ShopProject.Classes.People
             foreach (string line in lines)
             {
                 informations = line.Split(' ');
-                if (isSenior && informations.Length > ImportantWords.GetMinimumLength())
-                {
-                    s = s + new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]),
-                    informations[3], Convert.ToInt32(informations[4]), Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]),
-                    informations[8], Convert.ToDouble(informations[7]), informations[9]).ToString() + "\n";
-                }
-                else if(informations.Length > ImportantWords.GetMinimumLength() && informations[8].ToLower() == junior)
+                if ((isSenior || informations[8].ToLower() == junior) && informations.Length > ImportantWords.GetMinimumLength())
                 {
                     s = s + new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]),
                     informations[3], Convert.ToInt32(informations[4]), Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]),

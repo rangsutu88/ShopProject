@@ -1,5 +1,6 @@
 ﻿using System;
 using ShopProject.Classes.RepeatedWords;
+using static ShopProject.Classes.RepeatedWords.ImportantWords;
 
 namespace ShopProject.Classes.People
 {

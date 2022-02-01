@@ -171,9 +171,8 @@ namespace ShopProject.PeopleForms
             {
                 int idd = Convert.ToInt32(ViewCarOfIDComboBox.SelectedItem);
                 p = Cars.Getproduct(idd);
-                MessageBox.Show("Name: " + p.productName + "engine: " + p.engine + "  topSpeed: " + p.topSpeed + "  Acceleration: " +
-                    p.acceleration + "capacityOfTheMotor:  " + p.capacityOfTheMotor + "  numberOfCarsAvailable: " +
-                    p.numberOfCarsAvailable + "  unitPrice: " + p.unitPrice);
+                MessageBox.Show("Name: " + p.productName + "engine: " + p.engine + "  topSpeed: " + p.topSpeed + "  Acceleration: " + p.acceleration + "capacityOfTheMotor:  " + 
+                    p.capacityOfTheMotor + "  numberOfCarsAvailable: " + p.numberOfCarsAvailable + "  unitPrice: " + p.unitPrice);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
@@ -512,8 +511,7 @@ namespace ShopProject.PeopleForms
             {
                 Product a = new Product();
                 a.Name = "Car153"; a.Engine = "Petrol"; a.Color = "red"; a.Number_of_cylinders = 4; a.Distance_covered = 100; a.Charging_time = 5;
-                a.Top_speed = 220; a.Acceleration_0_60mph = 4; a.Seating_Capacity = 4; a.Capacity_of_the_motor = "4"; a.Numberofcars = 45;
-                a.UnitPrice = 1300;
+                a.Top_speed = 220; a.Acceleration_0_60mph = 4; a.Seating_Capacity = 4; a.Capacity_of_the_motor = "4"; a.Numberofcars = 45; a.UnitPrice = 1300;
                 using (LINQToSQLClassDataContext db = new LINQToSQLClassDataContext())
                 {
                     db.Products.InsertOnSubmit(a);
@@ -565,6 +563,16 @@ namespace ShopProject.PeopleForms
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void BuyThisCarButton_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ViewCarID_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)

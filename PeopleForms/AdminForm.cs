@@ -21,17 +21,18 @@ namespace ShopProject.PeopleForms
         public delegate int[] ReturnEmployeesSalariesInOrder(int a, int b);
         private delegate string AsyncReadLog(string filePath);
         private AsyncReadLog LogReader = new AsyncReadLog(Logger.LogRead);
+
         List<string> lines = new List<string>();
+        List<Engineers> l = Admin.GetListOfAllEmployees();
+
         Admin admin;
         delegate int SumofAges(List<int> l);
 
         public string AdminInformationsString = AllPaths.GetAdminInformationsFilePath(), AskForPromotionString = AllPaths.GetAskForPromotionFilePath(),
-                      EmployeeString = AllPaths.GetEmployeeFilepath(), BillsString = AllPaths.GetBillFilePath(), 
-                      xmlfilepath = AllPaths.GetXMLFilePath(), filepath = AllPaths.GetEmployeeFilepath();
-
-        public string senior = ImportantWords.GetSeniorString(), junior = ImportantWords.GetJuniorString(),
-            man = ImportantWords.GetManString(), woman = ImportantWords.GetWomanString(),
-            mechanical = ImportantWords.GetMechanicalString(), electrical = ImportantWords.GetElectricalString();
+                        EmployeeString = AllPaths.GetEmployeeFilepath(), BillsString = AllPaths.GetBillFilePath(), xmlfilepath = AllPaths.GetXMLFilePath(), 
+                        filepath = AllPaths.GetEmployeeFilepath(), senior = ImportantWords.GetSeniorString(), junior = ImportantWords.GetJuniorString(), 
+                        man = ImportantWords.GetManString(), woman = ImportantWords.GetWomanString(), mechanical = ImportantWords.GetMechanicalString(), 
+                        electrical = ImportantWords.GetElectricalString();
         string[] informations;
 
         static int id = 0;
@@ -93,11 +94,7 @@ namespace ShopProject.PeopleForms
                             }
                         }
                     }
-                    FileStream oFileStream = new FileStream(EmployeeString, FileMode.Open, FileAccess.Write);
-                    StreamWriter oStreamWriter = new StreamWriter(oFileStream);
-                    oFileStream.Seek(0, SeekOrigin.End);
-                    oStreamWriter.WriteLine(sb.ToString());
-                    oStreamWriter.Close();
+                    Logger.WriteIntoFile(EmployeeString, sb.ToString());
                     File.WriteAllText(AskForPromotionString,string.Empty);
                 }
             }
@@ -123,8 +120,7 @@ namespace ShopProject.PeopleForms
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
-        {
-        }
+        { }
 
         private void ViewTheBillsButton_Click(object sender, EventArgs e)
         {
@@ -133,9 +129,8 @@ namespace ShopProject.PeopleForms
                 string fileName = BillsString, DirectoriesNames = "", FileInfoNames = "";
                 FileInfo fi = new FileInfo(fileName);
                 fi.Refresh();
-                bool exists = fi.Exists ? true : false;
 
-                if (exists)
+                if (fi.Exists)
                 {
                     DirectoryInfo di = fi.Directory;
                     FileInfo[] files = di.Parent.GetFiles();
@@ -146,9 +141,8 @@ namespace ShopProject.PeopleForms
                         "  that have " + di.Parent.Name + " as a parent");
                     
                     foreach (DirectoryInfo d in dirs) { DirectoriesNames = DirectoriesNames + " " + d.Name; }
-                    MessageBox.Show("The directories names are: " + DirectoriesNames);
                     foreach (FileInfo f in files) { FileInfoNames = FileInfoNames + " " + f.Name; }
-                    if (FileInfoNames != "")  MessageBox.Show("The FileInfo names are: " + FileInfoNames);
+                    MessageBox.Show("The directories names are: " + DirectoriesNames + "\n" + "The FileInfo names are: " + FileInfoNames);
                 }
                 else MessageBox.Show("The file doesn't exists, it'll be created");
 
@@ -210,47 +204,31 @@ namespace ShopProject.PeopleForms
 
                                 if ((a[0] != null) && (a[1] != null))
                                 {
+                                    string u = "";
                                     ReturnEmployeesSalariesInOrder employeeorder;
+                                    bool isAscending = true;
+                                    int i = 0;
+
                                     if (OrderComparisonComboBox.SelectedItem.ToString() == "Compare in ascending order")
                                     {
                                         employeeorder = new ReturnEmployeesSalariesInOrder(AscendingOrder);
-                                        int[] arr = employeeorder(s[0], s[1]);
-                                        if ((arr[0] == -1) && (arr[1] == -1))
-                                        {
-                                            string u = a[1].ToString() + "  and " + a[0].ToString();
-                                            ResultTextBox.Text = u;
-                                        }
-                                        else if (arr[0] == s[1])
-                                        {
-                                            string u = a[1].ToString() + "  then " + a[0].ToString();
-                                            ResultTextBox.Text = u;
-                                        }
-                                        else
-                                        {
-                                            string u = a[0].ToString() + "  then " + a[1].ToString();
-                                            ResultTextBox.Text = u;
-                                        }
                                     }
-                                    if (OrderComparisonComboBox.SelectedItem.ToString() == "Compare in descending order")
+                                    else
                                     {
                                         employeeorder = new ReturnEmployeesSalariesInOrder(DescendingOrder);
-                                        int[] arr = employeeorder(s[0], s[1]);
-                                        if ((arr[0] == -1) && (arr[1] == -1))
-                                        {
-                                            string u = a[1].ToString() + "  and " + a[0].ToString();
-                                            ResultTextBox.Text = u;
-                                        }
-                                        else if (arr[0] == s[0])
-                                        {
-                                            string u = a[0].ToString() + "  then " + a[1].ToString();
-                                            ResultTextBox.Text = u;
-                                        }
-                                        else
-                                        {
-                                            string u = a[1].ToString() + "  then " + a[0].ToString();
-                                            ResultTextBox.Text = u;
-                                        }
+                                        isAscending = false;
                                     }
+                                    int[] arr = employeeorder(s[0], s[1]);
+
+                                    if (arr[i] == -1 && arr[i + 1] == -1) u = a[i + 1].ToString() + "  and " + a[i].ToString();
+
+                                    else if ((isAscending && arr[i] == s[i+1]) || (!isAscending && arr[i] != s[i]))
+                                    {
+                                        u = a[i + 1].ToString() + "  then " + a[i].ToString();
+                                    }
+                                    else u = a[i].ToString() + "  then " + a[i+1].ToString();
+
+                                    ResultTextBox.Text = u;
                                 }
                                 else if (a[0] == a[1]) MessageBox.Show("This is the same person or these ID doesn't exists");
                                 else MessageBox.Show("One of these ID does not exists");
@@ -348,26 +326,14 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                lines = File.ReadAllLines(filepath).ToList();
-                List<Engineers> l = new List<Engineers>();
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength())
-                    {
-                        Engineers p = new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]), informations[3], Convert.ToInt32(informations[4]), 
-                                    Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]), informations[8], Convert.ToDouble(informations[7]), informations[9]);
-                        l.Add(p);
-                    }
-                }
+                List<Engineers> l = Admin.GetListOfAllEmployees();
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
                 id = Convert.ToInt32(GetTheNameNumericUpDown.Value);
                 Engineers k = l.Find(new Predicate<Engineers>(FindID));
                 if (k == null) { MessageBox.Show("There is no employee with this ID"); }
                 else
                 {
-                    string s = "Name: " + k.Firstname + " LastName: " + k.Lastname + " Age: " + k.Age + " Gender: " + k.Gender + " Years of working: " + k.Yearsofworking + 
-                                " EmployeeID: " + k.EmployeeID + " Employee password: " + k.Employeepassword + " Salary: " + k.Salary + " Position: " + k.Position;
+                    string s = k.GetDetails();
 
                     if (k.Degree.All(char.IsDigit)) s += " Money earned per year: " + Convert.ToInt32(k.Degree);
                     else  s += " Degree: " + k.Degree;
@@ -391,25 +357,23 @@ namespace ShopProject.PeopleForms
                 if (MaxFirstNameLettersNumericUpDown.Value < 0) MessageBox.Show("The value must be positive");
                 else if (MaxFirstNameLettersNumericUpDown.Value != 0)
                 {
-                    List<string> lines = new List<string>(), l = new List<string>();
-                    lines = File.ReadAllLines(filepath).ToList();
-                    foreach (string line in lines)
+                    List<string> names = (from a in l select a.Firstname).ToList();
+                    if (names.Count != 0)
                     {
-                        informations = line.Split(' ');
-                        if(informations.Length > ImportantWords.GetMinimumLength()) l.Add(informations[0]);
-                    }
-                    if (l.Count != 0)
-                    {
-                        var a = from word in l where word.Length <= (MaxFirstNameLettersNumericUpDown.Value) select word;
-                        var b = l.Where(w => w.Length > MaxFirstNameLettersNumericUpDown.Value);
+                        string s = "";
+                        var a = from word in names where word.Length <= (MaxFirstNameLettersNumericUpDown.Value) select word;
+                        var b = names.Where(w => w.Length > MaxFirstNameLettersNumericUpDown.Value);
                         if (a != null)
                         {
                             foreach (var w in a) { NamesHavingLessLetters = NamesHavingLessLetters + w + " "; }
-                            if (NamesHavingLessLetters == "") MessageBox.Show("No names have less than this number of characters");
-                            else MessageBox.Show(NamesHavingLessLetters);
                             foreach (var w in b) { NamesHavingMoreLetters = NamesHavingMoreLetters + w + " "; }
-                            if(NamesHavingMoreLetters!="") MessageBox.Show("The others are: " + NamesHavingMoreLetters);
-                            else MessageBox.Show("No names have more than this number of characters");
+
+                            if (NamesHavingLessLetters == "") s += "No names have less than this number of characters";
+                            else s += NamesHavingLessLetters + "\n";
+
+                            if (NamesHavingMoreLetters == "") s += "No names have more than this number of characters";
+                            else s += "The others are: " + NamesHavingMoreLetters;
+                            MessageBox.Show(s);
                         }
                         else MessageBox.Show("List is empty");
                     }
@@ -424,17 +388,14 @@ namespace ShopProject.PeopleForms
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-        }
+        { }
 
         private void RemoveEmployeeButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (Convert.ToInt32(RemoveEmployeeIDNumericUpDown.Value) > 0)
-                {
-                    admin.removeemployee(Convert.ToInt32(RemoveEmployeeIDNumericUpDown.Value));
-                }
+                if (Convert.ToInt32(RemoveEmployeeIDNumericUpDown.Value) > 0) admin.removeemployee(Convert.ToInt32(RemoveEmployeeIDNumericUpDown.Value));
+                
                 else MessageBox.Show("Give an ID that is positive and not equal to 0");
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -449,13 +410,7 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                List<int> AgeList = new List<int>();
-                lines = File.ReadAllLines(filepath).ToList();
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if(informations.Length > ImportantWords.GetMinimumLength()) AgeList.Add(Convert.ToInt32(informations[2]));
-                }
+                List<int> AgeList = (from a in l select a.Age).ToList();
                 AgeList.Sort(delegate (int x, int y)
                 {
                     if (x < y) return 1;
@@ -476,15 +431,8 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                List<string> FirstNameList = new List<string>();
-                lines = File.ReadAllLines(filepath).ToList();
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength()) FirstNameList.Add(informations[0]);
-                }
+                List<string> FirstNameList = (from a in l select a.Firstname).ToList();
                 FirstNameList.Sort(new StringComparer());
-
                 string allnames = "";
                 foreach (string s in FirstNameList) { allnames = allnames + s + "  "; }
                 MessageBox.Show(allnames);
@@ -499,31 +447,7 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                string file = AllPaths.GetBillFilePath(), fn, ln, g, code;
-                int i, balance;
-                List<int> l = new List<int>();
-                lines = File.ReadAllLines(file).ToList();
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if(informations.Length > 2) l.Add(Convert.ToInt32(informations[3]));
-                }
-                using (TextReader twst = new StreamReader(AdminInformationsString))
-                {
-                    fn = twst.ReadLine();
-                    ln = twst.ReadLine();
-                    i = Int32.Parse(twst.ReadLine());
-                    g = twst.ReadLine();
-                    code = twst.ReadLine();
-                    balance = Int32.Parse(twst.ReadLine());
-                }
-                using (TextWriter tw = new StreamWriter(AdminInformationsString))
-                {
-                    tw.WriteLine(fn); tw.WriteLine(ln); tw.WriteLine(i); tw.WriteLine(g); tw.WriteLine(code);
-                    tw.Write((balance - (l.Sum())));
-                    
-                }
-                MessageBox.Show("You have paid: " + l.Sum() + " and you still have: " + (balance - (l.Sum())));
+                Bill.PayTheBills();
             }
             catch (DirectoryNotFoundException ex) { MessageBox.Show(ex.Message); }
             catch (FileNotFoundException ex) { MessageBox.Show(ex.Message); }
@@ -535,26 +459,14 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                List<Engineers> l = new List<Engineers>();
-                lines = File.ReadAllLines(filepath).ToList();
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength())
-                    {
-                        l.Add(new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]), informations[3],
-                                Convert.ToInt32(informations[4]), Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]), informations[8],
-                                Convert.ToDouble(informations[7]), informations[9]));
-                    }
-                }
+                List<Engineers> l = Admin.GetListOfAllEmployees();
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
                 IComparer<Engineers> mycomparer = new FirstNameSort();
                 l.Sort(mycomparer);
                 string st = "";
                 foreach (Engineers s in l)
                 {
-                    st = st + s.Firstname + " " + s.Lastname + " " + s.Age + " " + s.Gender + " " + s.Yearsofworking + " " + s.EmployeeID + " " + s.Employeepassword
-                        + " " + s.Salary + " " + s.Position + " " + s.Degree + " " + "\n";
+                    st = st + s.ToString() + "\n";
                 }
                 MessageBox.Show(st);
             }
@@ -568,13 +480,7 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                List<int> ID = new List<int>();
-                lines = File.ReadAllLines(filepath).ToList();
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength()) ID.Add(Convert.ToInt32(informations[5]));
-                }
+                List<int> ID = (from a in l select a.EmployeeID).ToList();
                 var list = from i in ID select i;
                 StringBuilder sb = new StringBuilder();
                 foreach (int j in list) sb.Append(j + " ");
@@ -590,20 +496,7 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                lines = File.ReadAllLines(filepath).ToList();
-                List<Engineers> l = new List<Engineers>();
-
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength())
-                    {
-                        Engineers p = new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]), informations[3],
-                            Convert.ToInt32(informations[4]), Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]), informations[8],
-                            Convert.ToDouble(informations[7]), informations[9]);
-                        l.Add(p);
-                    }
-                }
+                List<Engineers> l = Admin.GetListOfAllEmployees();
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
                 id = Convert.ToInt32(GetTheNameNumericUpDown.Value);
 
@@ -629,34 +522,29 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                List<string> l = new List<string>();
-                lines = File.ReadAllLines(filepath).ToList();
-
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength()) l.Add(informations[9]);
-                }
-                if (l.TrueForAll(delegate (string s)
+                string p = "";
+                List<string> c = (from a in l select a.Degree).ToList();
+                if (c.TrueForAll(delegate (string s)
                 {
                     return (int.TryParse(s, out int k));
                 }))
                 {
-                    MessageBox.Show("All the Employees are sales employees");
-                    int total = l.Sum(x => Convert.ToInt32(x));
-                    MessageBox.Show("The sum of moneyearned is: " + total);
+                    p += "All the Employees are sales employees";
+                    int total = c.Sum(x => Convert.ToInt32(x));
+                    p += "The sum of moneyearned is: " + total;
                 }
                 else
                 {
-                    MessageBox.Show("Not all the Employees are sales employees, we will remove the engineers from the list.");
-                    l.RemoveAll(delegate (string s)
+                    p += "Not all the Employees are sales employees, we will remove the engineers from the list.";
+                    c.RemoveAll(delegate (string s)
                     {
                         return (!int.TryParse(s, out int k));
                     });
                     string salesstring = "";
-                    foreach (string s in l) salesstring = salesstring + s + " ";
-                    MessageBox.Show("The money earned are: " + salesstring + "\n" + "Their sum is: " + l.Sum(x => Convert.ToInt32(x)));
+                    foreach (string s in c) salesstring = salesstring + s + " ";
+                    p += "The money earned are: " + salesstring + "\n" + "Their sum is: " + c.Sum(x => Convert.ToInt32(x));
                 }
+                MessageBox.Show(p);
             }
             catch (DirectoryNotFoundException ex) { MessageBox.Show(ex.Message); }
             catch (FileNotFoundException ex) { MessageBox.Show(ex.Message); }
@@ -682,6 +570,7 @@ namespace ShopProject.PeopleForms
                         else AgeNumber.Add(Convert.ToInt32(informations[2]), 1);
                     }
                 }
+
                 string s = "";
                 foreach (KeyValuePair<int, int> kvp in AgeNumber) s = s + kvp.Key + ": " + kvp.Value + "\n";
 
@@ -695,16 +584,7 @@ namespace ShopProject.PeopleForms
             try
             {
                 int agesum = 25, ageaverage = 23;
-                List<int> list = new List<int>();
-                lines = File.ReadAllLines(filepath).ToList();
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength() && Convert.ToInt32(informations[2]) < agesum)
-                    {
-                        list.Add(Convert.ToInt32(informations[2]));
-                    }
-                }
+                List<int> list = (from b in l where Convert.ToInt32(b.Age) < agesum select b.Age).ToList();
                 SumofAges sum = y => list.Sum();
                 int x = sum(list);
                 double average = list.Where(number => number < ageaverage).Average();
@@ -719,27 +599,15 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-
                 int age = 21, salariess = 3000;
-                List<int> l = new List<int>();
-                lines = File.ReadAllLines(filepath).ToList();
-
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength() && Convert.ToInt32(informations[2]) < age)
-                    {
-                        l.Add(Convert.ToInt32(informations[7]));
-                    }
-                }
-
+                List<int> a = (from b in l where b.Age < age select Convert.ToInt32(b.Salary)).ToList();
                 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
                 IComparer<int> intCompare = new SalaryComparer();
 
                 int searchPoint = salariess;
-                int position = l.BinarySearch(searchPoint, intCompare);
+                int position = a.BinarySearch(searchPoint, intCompare);
                 if (position < 0) MessageBox.Show("This point: " + searchPoint + " doesn't exist, but if it would exist it would be at position: " + (-position));
-                else MessageBox.Show("This point: " + searchPoint + " is at position: " + position + " out of " + l.Count);
+                else MessageBox.Show("This point: " + searchPoint + " is at position: " + position + " out of " + a.Count);
             }
             catch (DirectoryNotFoundException ex) { MessageBox.Show(ex.Message); }
             catch (FileNotFoundException ex) { MessageBox.Show(ex.Message); }
@@ -750,11 +618,10 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                string fn = "", ln = "", age = "", str = FirstNameAndLastNameAndAgeTextBox.Text;
+                string fn = "", ln = "", age = "", str = FirstNameAndLastNameAndAgeTextBox.Text, gender = man, position = junior;
                 char[] b = new char[str.Length];
                 int counter = 0, i = 0;
                 double salary = 1500;
-                string gender = man, position = junior;
                 using (StringReader sr = new StringReader(str))
                 {
                     sr.Read(b, 0, str.Length);
@@ -774,57 +641,40 @@ namespace ShopProject.PeopleForms
                 {
                     if ((ln != "") && (int.TryParse(ln, out int j) == false) && (ln.Length > 2))
                     {
-                        if (int.TryParse(age, out int k))
+                        if (int.TryParse(age, out int k) && ((k >= 18) && (k <= 64)))
                         {
-                            if ((k >= 18) && (k<=64))
+                            if (CreateMenRadioButton.Checked && CreateWomenRadioButton.Checked )
                             {
-                                if ((CreateMenRadioButton.Checked == false) && (CreateWomenRadioButton.Checked == false))
+                                if (CreateMenRadioButton.Checked == true) gender = man;
+                                else if (CreateWomenRadioButton.Checked == true) gender = woman;
+
+                                if (JuniorRadioButton.Checked && SeniorRadioButton.Checked)
                                 {
-                                    MessageBox.Show("Choose a gender");
-                                }
-                                else
-                                {
-                                    if (CreateMenRadioButton.Checked == true) gender = man;
-                                    else if (CreateWomenRadioButton.Checked == true) gender = woman;
-                                    if ((JuniorRadioButton.Checked == false) && (SeniorRadioButton.Checked == false))
+                                    if (JuniorRadioButton.Checked == true) { position = junior; salary = 1500; }
+                                    else if (SeniorRadioButton.Checked == true) { position = senior; salary = 5000; }
+                                    if (Convert.ToInt32(CreateYearsOfWorkingNumericUpDown.Value) >= 0)
                                     {
-                                        MessageBox.Show("Choose a position");
-                                    }
-                                    else
-                                    {
-                                        if (JuniorRadioButton.Checked == true) { position = junior; salary = 1500; }
-                                        else if (SeniorRadioButton.Checked == true) { position = senior; salary = 5000; }
-                                        if (Convert.ToInt32(CreateYearsOfWorkingNumericUpDown.Value) >= 0)
+                                        if (EmployeeTree.SelectedNode != null)
                                         {
-                                            if (EmployeeTree.SelectedNode != null)
-                                            {
-                                                if (EmployeeTree.Nodes[0].IsSelected)
-                                                {
-                                                    admin.addemployees(fn, ln, k, gender, Convert.ToInt32(CreateYearsOfWorkingNumericUpDown.Value),
-                                                                    Employee.GetLastIDGiven(), Convert.ToInt32(Employee.GenerateEmployeePassword()),
-                                                                    position, salary, "0");
-                                                }
-                                                else if (EmployeeTree.Nodes[1].Nodes[0].IsSelected)
-                                                {
-                                                    admin.addemployees(fn, ln, k, gender, Convert.ToInt32(CreateYearsOfWorkingNumericUpDown.Value),
-                                                                    Employee.GetLastIDGiven(), Convert.ToInt32(Employee.GenerateEmployeePassword()),
-                                                                    position, salary, mechanical);
-                                                }
-                                                else if (EmployeeTree.Nodes[1].Nodes[1].IsSelected)
-                                                {
-                                                    admin.addemployees(fn, ln, k, gender, Convert.ToInt32(CreateYearsOfWorkingNumericUpDown.Value),
-                                                                    Employee.GetLastIDGiven(), Convert.ToInt32(Employee.GenerateEmployeePassword()),
-                                                                    position, salary, electrical);
-                                                }
-                                                MessageBox.Show("Employee added succesfully");
-                                            }
-                                            else MessageBox.Show("Select a node");
+                                            string s = "";
+                                            if (EmployeeTree.Nodes[0].IsSelected) s = "0";
+
+                                            else if (EmployeeTree.Nodes[1].Nodes[0].IsSelected) s = mechanical;
+
+                                            else if (EmployeeTree.Nodes[1].Nodes[1].IsSelected) s = electrical;
+
+                                            admin.addemployees(fn, ln, k, gender, Convert.ToInt32(CreateYearsOfWorkingNumericUpDown.Value), Employee.GetLastIDGiven(), 
+                                                                Convert.ToInt32(Employee.GenerateEmployeePassword()), position, salary, s);
+                                                
+                                            MessageBox.Show("Employee added succesfully");
                                         }
-                                        else MessageBox.Show("Choose a years of working >=0");
+                                        else MessageBox.Show("Select a node");
                                     }
+                                    else MessageBox.Show("Choose a years of working >=0");
                                 }
+                                else MessageBox.Show("Choose a position");
                             }
-                            else MessageBox.Show("Enter an age between 18 and 64");
+                            else MessageBox.Show("Choose a gender");
                         }
                         else MessageBox.Show("Enter an age between 18 and 64");
                     }
@@ -841,8 +691,7 @@ namespace ShopProject.PeopleForms
         }
 
         private void EmployeeTree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-        }
+        { }
 
         private void theCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -854,6 +703,9 @@ namespace ShopProject.PeopleForms
         { }
 
         private void AllFilesCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        { }
+
+        private void dictionaryToolStripMenuItem_Click(object sender, EventArgs e)
         { }
 
         private void CopyFileButton_Click(object sender, EventArgs e)
@@ -870,8 +722,7 @@ namespace ShopProject.PeopleForms
         }
 
         private void MaxFirstNameLettersNumericUpDown_ValueChanged(object sender, EventArgs e)
-        {
-        }
+        { }
 
         private void adminInformationsInBinaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -881,55 +732,31 @@ namespace ShopProject.PeopleForms
 
         private void seniorsAndJuniorsNamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<Engineers> AllNames = new List<Engineers>();
-            lines = File.ReadAllLines(filepath).ToList();
-            foreach(string line in lines)
-            {
-                informations = line.Split(' ');
-                if (informations.Length > ImportantWords.GetMinimumLength())
-                {
-                    AllNames.Add(new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]), informations[3], Convert.ToInt32(informations[4]), 
-                            Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]), informations[8], Convert.ToDouble(informations[7]), informations[9]));
-                }
-            }
-
-            IEnumerable<IGrouping<double, string>> query = AllNames.GroupBy(x => x.Salary, x => x.Firstname);
+            IEnumerable<IGrouping<double, string>> query = l.GroupBy(x => x.Salary, x => x.Firstname);
             string seniors = "", juniors = "";
-            double[] keys = new double[2];
             foreach(IGrouping<double,string> a in query)
             {
                 if (a.Key == 1500)
                 {
-                    keys[0] = a.Key;
                     foreach (string name in a) { juniors = juniors + name + " "; }
                 }
                 else if (a.Key == 5000)
                 {
-                    keys[1] = a.Key;
                     foreach (string name in a) { seniors = seniors + name + " "; }
                 }
             }
-            MessageBox.Show("The juniors who are paid " + keys[0] + " are: " + juniors + "\nThe seniors who are paid " + keys[1] + " are: " + seniors);
+            MessageBox.Show("The juniors who are paid " + 1500 + " are: " + juniors + "\nThe seniors who are paid " + 5000 + " are: " + seniors);
         }
 
 
         private void orderTheIDByDescendingOrderAndTakeTheFirst3IDToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int[] AllID = new int[File.ReadAllLines(filepath).Count()];
-            int counter = 0;
-            lines = File.ReadAllLines(filepath).ToList();
-            foreach(string line in lines)
-            {
-                informations = line.Split(' ');
-                if (informations.Length > ImportantWords.GetMinimumLength())
-                {
-                    AllID[counter] = Convert.ToInt32(informations[5]);
-                    counter++;
-                }
-            }
+            
+            List<int> AllID = (from b in l select b.EmployeeID).ToList();
+
             IEnumerable<int> TopThreeID = AllID.OrderByDescending(x => x).Take(3);
             string s = "The top three ID are: ";
-            counter = 0;
+            int counter = 0;
             foreach (var a in TopThreeID)
             {
                 if(counter != 2) s = s + a.ToString() + ", ";
@@ -941,13 +768,8 @@ namespace ShopProject.PeopleForms
 
         private void distinctAgesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<int> ages = new List<int> { };
-            lines = File.ReadAllLines(filepath).ToList();
-            foreach (string line in lines)
-            {
-                informations = line.Split(' ');
-                if (informations.Length > ImportantWords.GetMinimumLength()) ages.Add(Convert.ToInt32(informations[2]));
-            }
+            List<int> ages = (from b in l select b.Age).ToList();
+
             IEnumerable<int> DistinctAges = ages.Distinct();
             string s = "The distinct ages by ascending order are: \n";
             DistinctAges = DistinctAges.OrderBy(x => x);
@@ -959,18 +781,6 @@ namespace ShopProject.PeopleForms
         {
             try
             {
-                List<Engineers> l = new List<Engineers>();
-                lines = File.ReadAllLines(filepath).ToList();
-                foreach (string line in lines)
-                {
-                    informations = line.Split(' ');
-                    if (informations.Length > ImportantWords.GetMinimumLength())
-                    {
-                        Engineers p = new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]), informations[3], Convert.ToInt32(informations[4]), 
-                                    Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]), informations[8], Convert.ToDouble(informations[7]), informations[9]);
-                        l.Add(p);
-                    }
-                }
                 l.Sort(delegate (Engineers a, Engineers b)
                 {
                     if (a.Yearsofworking < b.Yearsofworking) return -1;
@@ -982,8 +792,7 @@ namespace ShopProject.PeopleForms
                 {
                     foreach (Engineers eng in l)
                     {
-                        tw.Write(eng.Firstname + " " + eng.Lastname + " " + eng.Age + " " + eng.Gender + " " + eng.Yearsofworking + " " + eng.EmployeeID + " " +
-                            eng.Employeepassword + " " + eng.Salary + " " + eng.Position + " " + eng.Degree);
+                        tw.Write(eng.ToString());
                         tw.WriteLine();
                     }
                 }
@@ -1007,21 +816,9 @@ namespace ShopProject.PeopleForms
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
+        { }
     }
 
-    public class EmployeeTaskComparer : IEqualityComparer<Engineers>
-    {
-        public bool Equals(Engineers x, Engineers y)
-        {
-            return ((x.Firstname == y.Firstname) && (x.EmployeeID == y.EmployeeID));
-        }
-        public int GetHashCode(Engineers x)
-        {
-            return x.EmployeeID.GetHashCode();
-        }
-    }
     public class AgeComparer : IEqualityComparer<int>
     {
         public bool Equals(int x,int y)

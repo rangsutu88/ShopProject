@@ -61,3 +61,44 @@ D:\Codes\C# Projects\ShopProject\ShopProject\bin\Debug\System.Text.Encodings.Web
 D:\Codes\C# Projects\ShopProject\ShopProject\bin\Debug\System.Text.Json.xml
 D:\Codes\C# Projects\ShopProject\ShopProject\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\Codes\C# Projects\ShopProject\ShopProject\bin\Debug\System.ValueTuple.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\ShopProject.exe.config
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\ShopProject.exe
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\ShopProject.pdb
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\EntityFramework.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\EntityFramework.SqlServer.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Buffers.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Memory.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Numerics.Vectors.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Text.Encodings.Web.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Text.Json.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.ValueTuple.dll
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\EntityFramework.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\EntityFramework.SqlServer.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Buffers.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Memory.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Numerics.Vectors.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Text.Encodings.Web.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Text.Json.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\Codes\C#\ShopProject\ShopProject\bin\Debug\System.ValueTuple.xml
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.csproj.AssemblyReference.cache
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.csproj.SuggestedBindingRedirects.cache
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.create_LogIn_Forget.CreateAccountForm.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.create_LogIn_Forget.ForgetThePasswordForm.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.create_LogIn_Forget.LogInForm.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.Form1.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.Game.BrickBreaker.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.PeopleForms.AdminForm.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.PeopleForms.EmployeeForm.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.PeopleForms.UserForm.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.Properties.Resources.resources
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.csproj.GenerateResource.cache
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.csproj.CoreCompileInputs.cache
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.csproj.CopyComplete
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.exe
+D:\Codes\C#\ShopProject\ShopProject\obj\Debug\ShopProject.pdb

@@ -2,4 +2,4 @@ Electricity bill is: 1500
 Phone bill is: 200
 Internet bill is: 400
 Shop bill is: 8000
-Salary bill is: 32000
+Salary bill is: 51500

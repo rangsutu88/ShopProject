@@ -9,7 +9,7 @@ using ShopProject.Classes.Paths;
 
 namespace ShopProject.Classes.People
 {
-    public sealed class Engineers : Employee, IEmployee
+    public sealed class Engineers : Employee
     {
         private string degree;
 
@@ -86,13 +86,7 @@ namespace ShopProject.Classes.People
             foreach (string line in lines)
             {
                 informations = line.Split(' ');
-                if (isSenior && informations.Length > ImportantWords.GetMinimumLength())
-                {
-                    s = s + new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]),
-                    informations[3], Convert.ToInt32(informations[4]), Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]),
-                    informations[8], Convert.ToDouble(informations[7]), informations[9]).ToString() + "\n";
-                }
-                else if (informations.Length > ImportantWords.GetMinimumLength() && informations[8].ToLower() == junior)
+                if ((isSenior || informations[8].ToLower() == junior) && informations.Length > ImportantWords.GetMinimumLength())
                 {
                     s = s + new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]),
                     informations[3], Convert.ToInt32(informations[4]), Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]),
@@ -107,6 +101,12 @@ namespace ShopProject.Classes.People
         {
             return (this.Firstname + " " + this.Lastname + " " + this.Age + " " + this.Gender + " " + this.Yearsofworking + " " + this.EmployeeID + " " +
                 this.Employeepassword + " " + this.Salary + " " + this.Position + " " + this.Degree);
+        }
+
+        public string GetDetails()
+        {
+            return "Name: " + this.Firstname + " LastName: " + this.Lastname + " Age: " + this.Age + " Gender: " + this.Gender + " Years of working: " + this.Yearsofworking +
+                      " EmployeeID: " + this.EmployeeID + " Employee password: " + this.Employeepassword + " Salary: " + this.Salary + " Position: " + this.Position;
         }
     }
 }

@@ -8,6 +8,7 @@ using ShopProject.Interfaces;
 using ShopProject.PeopleForms;
 using ShopProject.Classes.Paths;
 using ShopProject.Classes.RepeatedWords;
+using ShopProject.Classes.LoggerClass;
 
 namespace ShopProject.Classes.People
 {
@@ -227,12 +228,8 @@ namespace ShopProject.Classes.People
         {
             try
             {
-                FileStream oFileStream = new FileStream(filepath, FileMode.Open, FileAccess.Write);
-                StreamWriter oStreamWriter = new StreamWriter(oFileStream);
-                oFileStream.Seek(0, SeekOrigin.End);
-                oStreamWriter.WriteLine(fn + " " + ln + " " + age + " " + gender + " " + yearsofworking + " " + employeeID + " " +
-                                        employeepassword + " " + salary + " " + position + " " + degree);
-                oStreamWriter.Close();
+                string s = fn + " " + ln + " " + age + " " + gender + " " + yearsofworking + " " + employeeID + " " + employeepassword + " " + salary + " " + position + " " + degree;
+                Logger.WriteIntoFile(filepath, s);
             }
             catch (DirectoryNotFoundException ex) { MessageBox.Show(ex.Message); }
             catch (FileNotFoundException ex) { MessageBox.Show(ex.Message); }
@@ -304,14 +301,32 @@ namespace ShopProject.Classes.People
                 informations = line.Split(' ');
                 if (informations.Length > ImportantWords.GetMinimumLength())
                 {
-                    eng = new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]), informations[3],
-                        Convert.ToInt32(informations[4]), Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]), informations[8],
-                        Convert.ToDouble(informations[7]), informations[9]);
+                    eng = new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]), informations[3], Convert.ToInt32(informations[4]), 
+                        Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]), informations[8], Convert.ToDouble(informations[7]), informations[9]);
                     engineers[counter] = eng;
                     counter++;
                 }
             }
             return engineers;
+        }
+
+        public static List<Engineers> GetListOfAllEmployees()
+        {
+            string[] informations;
+            List<string> lines = new List<string>();
+            List<Engineers> l = new List<Engineers>();
+            lines = File.ReadAllLines(employeefilepath).ToList();
+            foreach (string line in lines)
+            {
+                informations = line.Split(' ');
+                if (informations.Length > ImportantWords.GetMinimumLength())
+                {
+                    Engineers p = new Engineers(informations[0], informations[1], Convert.ToInt32(informations[2]), informations[3], Convert.ToInt32(informations[4]),
+                                Convert.ToInt32(informations[5]), Convert.ToInt32(informations[6]), informations[8], Convert.ToDouble(informations[7]), informations[9]);
+                    l.Add(p);
+                }
+            }
+            return l;
         }
 
         public static void CreateAdminInformation()

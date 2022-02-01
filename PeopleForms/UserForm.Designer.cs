@@ -218,6 +218,7 @@
             this.ViewCarID.Size = new System.Drawing.Size(100, 22);
             this.ViewCarID.TabIndex = 11;
             this.ViewCarID.Text = "View Car of ID:";
+            this.ViewCarID.TextChanged += new System.EventHandler(this.ViewCarID_TextChanged);
             // 
             // TotalPriceTextbox
             // 
@@ -242,6 +243,7 @@
             this.BuyThisCarButton.Size = new System.Drawing.Size(100, 22);
             this.BuyThisCarButton.TabIndex = 10;
             this.BuyThisCarButton.Text = "Buy Product ID";
+            this.BuyThisCarButton.TextChanged += new System.EventHandler(this.BuyThisCarButton_TextChanged);
             // 
             // AccountPropertiesLabel
             // 

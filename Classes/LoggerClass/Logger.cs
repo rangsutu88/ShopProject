@@ -7,6 +7,21 @@ namespace ShopProject.Classes.LoggerClass
 {
     class Logger
     {
+        public static void WriteIntoFile(string logPath, string towrite)
+        {
+            try
+            {
+                FileStream oFileStream = new FileStream(logPath, FileMode.Open, FileAccess.Write);
+                StreamWriter oStreamWriter = new StreamWriter(oFileStream);
+                oFileStream.Seek(0, SeekOrigin.End);
+                oStreamWriter.WriteLine(towrite);
+                oStreamWriter.Close();
+            }
+            catch (FileNotFoundException ex) { MessageBox.Show(ex.Message); }
+            catch (IOException ex) { MessageBox.Show(ex.Message); }
+            catch { MessageBox.Show("Logging Failed"); }
+        }
+
         public static void LogWrite(string logPath, string fn, string ln, int id)
         {
             try

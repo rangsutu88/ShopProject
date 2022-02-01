@@ -22,8 +22,9 @@ namespace ShopProject.Game
     public partial class BrickBreaker : Form
     {
         Player p;
-        bool IsGameOver, level2 = false;
+        
         int BallX = 8, BallY = 70, numberofremovedbricks = 0;
+        bool IsGameOver, level2 = false;
         Random rnd = new Random();
 
         PictureBox[] BlockArray;
@@ -84,7 +85,6 @@ namespace ShopProject.Game
                 }
             }
         }
-
 
         private void SetupTheGame()
         {
@@ -203,9 +203,7 @@ namespace ShopProject.Game
         }
         
         private void BrickBreaker_Load(object sender, EventArgs e)
-        {
-
-        }
+        { }
 
         /*
         bool GoLeft, GoRight, IsGameOver;

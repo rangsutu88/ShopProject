@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Sales");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mechanical");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Electrical");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Engineer", new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Sales");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Mechanical");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Electrical");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Engineer", new System.Windows.Forms.TreeNode[] {
+            treeNode6,
+            treeNode7});
             this.ViewTheBillsButton = new System.Windows.Forms.Button();
             this.RemoveEmployeeButton = new System.Windows.Forms.Button();
             this.SeeWhoLoggedInButton = new System.Windows.Forms.Button();
@@ -362,6 +362,7 @@
             this.dictionaryToolStripMenuItem.Name = "dictionaryToolStripMenuItem";
             this.dictionaryToolStripMenuItem.Size = new System.Drawing.Size(91, 24);
             this.dictionaryToolStripMenuItem.Text = "Dictionary";
+            this.dictionaryToolStripMenuItem.Click += new System.EventHandler(this.dictionaryToolStripMenuItem_Click);
             // 
             // betweenEmployeeAndAgeToolStripMenuItem
             // 
@@ -420,7 +421,7 @@
             // theCodeToolStripMenuItem
             // 
             this.theCodeToolStripMenuItem.Name = "theCodeToolStripMenuItem";
-            this.theCodeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.theCodeToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.theCodeToolStripMenuItem.Text = "TheCode";
             this.theCodeToolStripMenuItem.Click += new System.EventHandler(this.theCodeToolStripMenuItem_Click);
             // 
@@ -436,14 +437,14 @@
             // createXMLFileToolStripMenuItem
             // 
             this.createXMLFileToolStripMenuItem.Name = "createXMLFileToolStripMenuItem";
-            this.createXMLFileToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
+            this.createXMLFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.createXMLFileToolStripMenuItem.Text = "CreateXMLFile";
             this.createXMLFileToolStripMenuItem.Click += new System.EventHandler(this.createXMLFileToolStripMenuItem_Click);
             // 
             // createJSONFileToolStripMenuItem
             // 
             this.createJSONFileToolStripMenuItem.Name = "createJSONFileToolStripMenuItem";
-            this.createJSONFileToolStripMenuItem.Size = new System.Drawing.Size(193, 26);
+            this.createJSONFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.createJSONFileToolStripMenuItem.Text = "CreateJSONFile";
             this.createJSONFileToolStripMenuItem.Click += new System.EventHandler(this.createJSONFileToolStripMenuItem_Click);
             // 
@@ -822,17 +823,17 @@
             // 
             this.EmployeeTree.Location = new System.Drawing.Point(618, 550);
             this.EmployeeTree.Name = "EmployeeTree";
-            treeNode1.Name = "SalesNode";
-            treeNode1.Text = "Sales";
-            treeNode2.Name = "MechanicalNode";
-            treeNode2.Text = "Mechanical";
-            treeNode3.Name = "ElectricalNode";
-            treeNode3.Text = "Electrical";
-            treeNode4.Name = "EngineerNode";
-            treeNode4.Text = "Engineer";
+            treeNode5.Name = "SalesNode";
+            treeNode5.Text = "Sales";
+            treeNode6.Name = "MechanicalNode";
+            treeNode6.Text = "Mechanical";
+            treeNode7.Name = "ElectricalNode";
+            treeNode7.Text = "Electrical";
+            treeNode8.Name = "EngineerNode";
+            treeNode8.Text = "Engineer";
             this.EmployeeTree.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode4});
+            treeNode5,
+            treeNode8});
             this.EmployeeTree.Size = new System.Drawing.Size(121, 81);
             this.EmployeeTree.TabIndex = 115;
             this.EmployeeTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.EmployeeTree_AfterSelect);

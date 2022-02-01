@@ -20,5 +20,7 @@ namespace ShopProject.Design_Patterns.AdapterPattern.Adapter
                 return writer.ToString();
             }    
         }
+
+        
     }
 }
